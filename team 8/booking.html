@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Your Journey - Travel Tales</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .booking-section {
+            padding: 120px 5% 5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .booking-form {
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+        }
+
+        .error-message {
+            color: var(--accent-color);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        .error {
+            border-color: var(--accent-color) !important;
+        }
+
+        .submit-btn {
+            background-color: var(--secondary-color);
+            color: var(--white);
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #2980b9;
+        }
+
+        .package-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .package-card {
+            background-color: var(--white);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .package-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .package-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .package-card .price {
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+
+        .package-card ul {
+            list-style: none;
+            margin-bottom: 1rem;
+        }
+
+        .package-card ul li {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .package-card ul li i {
+            color: var(--secondary-color);
+        }
+    </style>
+</head>
+<body class="booking-page">
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <h1>Travel Tales</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="booking.html" class="active">Book Now</a></li>
+                <li><a href="destinations.html">Destinations</a></li>
+                <li><a href="business.html">Business Portal</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="booking-section">
+            <h2>Choose Your Travel Package</h2>
+            <div class="package-options">
+                <div class="package-card">
+                    <h3>Adventure Explorer</h3>
+                    <p>Perfect for thrill-seekers and nature lovers</p>
+                    <ul>
+                        <li><i class="fas fa-check"></i> 5 Days / 4 Nights</li>
+                        <li><i class="fas fa-check"></i> Guided Tours</li>
+                        <li><i class="fas fa-check"></i> Adventure Activities</li>
+                        <li><i class="fas fa-check"></i> Basic Accommodation</li>
+                    </ul>
+                    <div class="price">₹79,999</div>
+                    <button class="submit-btn" onclick="selectPackage('Adventure Explorer')">Select Package</button>
+                </div>
+
+                <div class="package-card">
+                    <h3>Luxury Escape</h3>
+                    <p>Indulge in premium experiences and comfort</p>
+                    <ul>
+                        <li><i class="fas fa-check"></i> 7 Days / 6 Nights</li>
+                        <li><i class="fas fa-check"></i> Private Tours</li>
+                        <li><i class="fas fa-check"></i> Spa Treatments</li>
+                        <li><i class="fas fa-check"></i> 5-Star Accommodation</li>
+                    </ul>
+                    <div class="price">₹1,99,999</div>
+                    <button class="submit-btn" onclick="selectPackage('Luxury Escape')">Select Package</button>
+                </div>
+
+                <div class="package-card">
+                    <h3>Cultural Discovery</h3>
+                    <p>Immerse yourself in local culture and traditions</p>
+                    <ul>
+                        <li><i class="fas fa-check"></i> 6 Days / 5 Nights</li>
+                        <li><i class="fas fa-check"></i> Cultural Workshops</li>
+                        <li><i class="fas fa-check"></i> Local Experiences</li>
+                        <li><i class="fas fa-check"></i> Boutique Hotels</li>
+                    </ul>
+                    <div class="price">₹1,19,999</div>
+                    <button class="submit-btn" onclick="selectPackage('Cultural Discovery')">Select Package</button>
+                </div>
+            </div>
+
+            <form id="bookingForm" class="booking-form">
+                <h3>Book Your Journey</h3>
+                <div class="form-group">
+                    <label for="package">Selected Package</label>
+                    <input type="text" id="package" name="package" readonly required>
+                </div>
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="start-date">Start Date</label>
+                    <input type="date" id="start-date" name="start-date" required>
+                </div>
+                <div class="form-group">
+                    <label for="end-date">End Date</label>
+                    <input type="date" id="end-date" name="end-date" required>
+                </div>
+                <div class="form-group">
+                    <label for="travelers">Number of Travelers</label>
+                    <select id="travelers" name="travelers" required>
+                        <option value="">Select number of travelers</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5+</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="special-requests">Special Requests</label>
+                    <textarea id="special-requests" name="special-requests" rows="4"></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Complete Booking</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: info@traveltales.com</p>
+                <p>Phone: +91 98765 43210</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/traveltales" target="_blank"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/traveltales" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.twitter.com/traveltales" target="_blank"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Travel Tales. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        function selectPackage(packageName) {
+            document.getElementById('package').value = packageName;
+            document.getElementById('bookingForm').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html> 
