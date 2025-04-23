@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="travelTalesApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Popular Destinations - Travel Tales</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <style>
+        .destinations-section {
+            padding: 120px 5% 5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .destinations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .destination-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .destination-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .destination-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .destination-content {
+            padding: 1.5rem;
+        }
+
+        .destination-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .destination-content p {
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .destination-features {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+        }
+
+        .book-now-btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background-color: var(--secondary-color);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .book-now-btn:hover {
+            background-color: #2980b9;
+        }
+
+        .filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--secondary-color);
+            border-radius: 20px;
+            background: none;
+            color: var(--secondary-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background-color: var(--secondary-color);
+            color: var(--white);
+        }
+
+        .search-bar {
+            width: 100%;
+            max-width: 500px;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 1rem;
+            padding-left: 3rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .search-bar i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+        }
+    </style>
+</head>
+<body class="destinations-page" ng-controller="MainController">
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <h1>Travel Tales</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="booking.html">Book Now</a></li>
+                <li><a href="destinations.html" class="active">Destinations</a></li>
+                <li><a href="business.html">Business Portal</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="destinations-section">
+            <h2>Explore India's Finest Destinations</h2>
+            
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search destinations..." ng-model="searchQuery">
+            </div>
+
+            <div class="filters">
+                <button class="filter-btn" ng-class="{'active': selectedCategory === 'all'}" ng-click="setCategory('all')">All</button>
+                <button class="filter-btn" ng-class="{'active': selectedCategory === 'beach'}" ng-click="setCategory('beach')">Beach</button>
+                <button class="filter-btn" ng-class="{'active': selectedCategory === 'mountain'}" ng-click="setCategory('mountain')">Mountain</button>
+                <button class="filter-btn" ng-class="{'active': selectedCategory === 'city'}" ng-click="setCategory('city')">City</button>
+                <button class="filter-btn" ng-class="{'active': selectedCategory === 'cultural'}" ng-click="setCategory('cultural')">Cultural</button>
+            </div>
+
+            <div class="destinations-grid">
+                <div class="destination-card" ng-repeat="destination in filterDestinations()" data-category="{{destination.category}}">
+                    <div class="destination-image" style="background-image: url('{{destination.image}}')"></div>
+                    <div class="destination-content">
+                        <h3>{{destination.name}}</h3>
+                        <p>{{destination.description}}</p>
+                        <div class="destination-features">
+                            <span class="feature" ng-repeat="feature in destination.features | json">
+                                <i class="fas fa-check"></i> {{feature}}
+                            </span>
+                        </div>
+                        <a href="booking.html" class="book-now-btn">Book Now</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: info@traveltales.com</p>
+                <p>Phone: +91 98765 43210</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/traveltales" target="_blank"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/traveltales" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.twitter.com/traveltales" target="_blank"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Travel Tales. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html> 
